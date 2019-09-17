@@ -4,7 +4,7 @@ Official teamcity agent with preinstalled nuget and aws eb cli.
 
 Pull the TeamCity image from the Docker Hub Repository:
 
-kosar/teamcity-agent
+```kosar/teamcity-agent```
 
 and use the following command to start a container with TeamCity agent running inside
 
