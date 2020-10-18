@@ -3,6 +3,7 @@ LABEL maintainer="kosar@freedom.valor.ua"
 LABEL vendor="1node"
 LABEL lastUpdate="04-02-2020"
 LABEL description="Teamcity agent with .NET Core 3.1 sdk, mono and nuget installer."
+USER root
 RUN apt update && apt upgrade -y
 RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip wget && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
