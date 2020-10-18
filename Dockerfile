@@ -19,3 +19,11 @@ RUN cd /tmp && wget -q https://packages.microsoft.com/config/ubuntu/18.04/packag
 RUN pip3 install awsebcli --upgrade
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
     apt install -y nodejs && npm i -g npm
+RUN curl -L "https://github.com/github-release/github-release/releases/download/$(curl --silent "https://api.github.com/repos/github-release/github-release/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')/linux-amd64-github-release.bz2" -o /tmp/linux-amd64-github-release.bz2 && \
+    bzip2 -dc /tmp/linux-amd64-github-release.bz2 > /usr/local/bin/github-release  && \
+    rm /tmp/linux-amd64-github-release.bz2 && \
+    chmod +x /usr/local/bin/github-release
+RUN cd /tmp && wget https://golang.org/dl/go1.15.3.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz && \
+    export PATH=$PATH:/usr/local/go/bin && \
+    rm go1.15.3.linux-amd64.tar.gz
