@@ -12,7 +12,7 @@ Linux container:
 ```bash
 docker run -it -e SERVER_URL="<url>"  \
     -v <path>:/data/teamcity_agent/conf  \      
-    kosar/teamcity-agent
+    1node/teamcity-agent
 ```
 where is the full URL for TeamCity server, accessible by the agent. Note that "localhost" will not generally not work as it will refer to the "localhost" inside the container. is the host machine directory to serve as the TeamCity agent config directory. We recommend providing this binding in order to persist the agent configuration, e.g. authorization on the server. Note that you should map a different folder for every new agent you create.
 
@@ -68,7 +68,7 @@ services:
         max-file: "5"
 
   tc-ag-1:
-    image: kosar/teamcity-agent
+    image: 1node/teamcity-agent
     container_name: teamcity-agent-1
     restart: always
     environment:
@@ -91,7 +91,7 @@ docker run -it -e SERVER_URL="<url>"  \
     -v /opt/buildagent/tools:/opt/buildagent/tools \
     -v /opt/buildagent/plugins:/opt/buildagent/plugins \
     -v /opt/buildagent/system:/opt/buildagent/system \
-    kosar/teamcity-agent
+    1node/teamcity-agent
 ```
 Volume options starting with -v /opt/buildagent/ are required if you want to use Docker Wrapper on this build agent. Without them, the corresponding builds with the enabled docker wrapper (for Command Line, Maven, Ant, Gradle, and since TeamCity 2018.1, .NET CLI (dotnet) and PowerShell runners) will not work. Unfortunately, using several docker-based build agents from the same host is not possible.
 
@@ -105,6 +105,6 @@ docker run -it -e SERVER_URL="<url>"  \
     -v <path>:/data/teamcity_agent/conf \
     -v docker_volumes:/var/lib/docker \
     --privileged -e DOCKER_IN_DOCKER=start \    
-    kosar/teamcity-agent
+    1node/teamcity-agent
 ```
 The option -v docker_volumes:/var/lib/docker is related to the case when the aufs filesystem is used and when a build agent is started from a Windows machine (related issue). If you want to start several build agents, you need to specify different volumes for them, like -v agent1_volumes:/var/lib/docker, -v agent2_volumes:/var/lib/docker.
