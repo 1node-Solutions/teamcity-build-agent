@@ -10,7 +10,7 @@ RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip wget &&
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list && \
     apt update && \
-    apt install -y mono-devel && \
+    apt install -y mono-devel zip && \
     curl -o /usr/local/bin/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe && \
     alias nuget="mono /usr/local/bin/nuget.exe"
 RUN cd /tmp && wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
