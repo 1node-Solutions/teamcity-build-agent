@@ -5,6 +5,7 @@ LABEL lastUpdate="16-11-2020"
 LABEL description="Teamcity agent with .NET Core 3.1 sdk, mono and nuget installer."
 USER root
 ENV PATH="$PATH:/root/.dotnet/tools"
+ENV DOCKER_IN_DOCKER=start
 RUN apt update && apt upgrade -y
 RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip wget && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
@@ -29,4 +30,7 @@ RUN cd /tmp && wget https://golang.org/dl/go1.15.3.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz && \
     export PATH=$PATH:/usr/local/go/bin && \
     rm go1.15.3.linux-amd64.tar.gz && ln -s /usr/local/go/bin/go /usr/local/bin/
-    
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/run-services.sh"]
